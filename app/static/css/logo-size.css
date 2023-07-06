@@ -1,0 +1,11 @@
+img{
+    max-width: 100%;
+}
+
+.img-large{
+    position: relative;
+}
+
+.img-large img{
+    width: 8%;
+}

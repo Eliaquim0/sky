@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+   
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Login</title>
+    <link href="{{ url_for('static', filename='css/styles3.css') }}" rel="stylesheet" />
+    <style>
+        body{
+        background-image:url({{url_for('static', filename='img/header-2-bg.jpg')}})
+        }
+    </style>     
+</head>
+
+<body>
+    <div class="log" >
+        <div class="form-log">
+         <div class="form-header">
+           
+            <div class="title">
+                    <h1>Login</h1>
+                </div>
+                
+                  
+                    {% if  current_user.is_authenticated %}
+                    <button><a href="#">Minha Conta</a></button>
+                    <button><a href="{{ url_for('logout') }}">Sair</a></button>
+                    {% else %}
+                    <button><a href="/cadastro">Cadastrar</a></button>
+                    {% endif %}  
+                    <br><br><br>
+                    
+                <form action="" method="post">
+                        {{ form.csrf_token }}
+                    <div class="form-group">
+                        {{ form.email(class="form-control", placeholder="email") }}
+                    </div>
+                    <br><br>
+                    <div class="form-group">
+                        {{ form.password(class="form-control", placeholder="senha")}}
+                    </div>
+                    <br><br>
+                    <div class="checkbox">
+                        <label>
+                        {{ form.remember_me }} Relembrar - me
+                        </label>
+                        
+                    </div>
+                    <br><br>
+                    <button type="submit" class="btn btn-default">Enviar</button>
+                </form>
+                <div class="alert alert-warning">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <ul class=flashes>
+                            {% for message in messages %}
+                            <li>{{ message }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {% endwith %}
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+</html>

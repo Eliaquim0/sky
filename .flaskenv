@@ -1,0 +1,3 @@
+FLASK_APP=skycraper.py
+FLASK_ENV=develompent
+FLASK_DEBUG=true

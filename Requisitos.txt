@@ -1,0 +1,33 @@
+Requisitos
+ -Tela de perfil
+ -Para efetuar alguma ação no app, o usuario precisa estar logado (tela de configuração)
+ -Poder recuperar a senha
+ -Cadastrar localização
+ -Escolher limite para a busca(distancia) de imoveis
+ -Botao para curtir casa - usuario precisa estar cadastrado
+ -Botao para nao curtir - usuario precisa estar cadastrado
+ -Logo - nome do app
+ -Campo de pesquisa 
+ -Filtro de pesquisa
+ -campo para escolher o meio de pagamento
+ -Tela para mostrar imoveis curtidos - descrição do imovel - data do match
+
+
+
+
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
