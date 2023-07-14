@@ -1,9 +1,16 @@
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user
 from app import app, db, LoginManager
-from app.models import Usuario, Endereco, Estado, Cidade, Bairro, EndImovel, Imovel
+from app.models import Usuario, Endereco, Estado, Cidade, Bairro, EndImovel, Imovel, Imagem
 from app.forms import LoginForm
+from werkzeug.utils import secure_filename
+import os
+import urllib.request
 
+EXTENSAO_PERMITIDA = set(['jpg', 'jpeg', 'gif', 'png'])
+
+def arquivo_permitido(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in EXTENSAO_PERMITIDA
 
 
 @app.route('/')
@@ -110,3 +117,22 @@ def cadastroimoveis():
 
     return render_template('cadastroimoveis.html')
 
+
+@app.route('/imagem', methods=['GET', 'POST'])
+def imagem():
+    if request.method =='POST':
+        imgimovel = request.files['arquivo']
+        filename = secure_filename(imgimovel.filename)
+
+        imagem = Imagem(imgimovel)
+        db.session.add(imagem)
+        db.session.commit()
+
+        if imgimovel and arquivo_permitido(imgimovel.filename):
+            imgimovel.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            flash('Arquivo enviado com sucesso ' + imgimovel.filename + '!')
+            return redirect('/imagem')
+        else:
+            flash('Somente permitido arquivos png, jpg, jpeg e gif')
+
+    return render_template('imagem.html')

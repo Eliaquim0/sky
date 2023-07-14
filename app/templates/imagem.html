@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario IMG</title>
+</head>
+
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="input-box">
+        <label for="foto">Foto:</label>
+        <input type="file" name="arquivo" autocomplete="off" required>
+            </div>
+            <img src="{{imgimovel}}">
+        <div class="input-box">
+                <button type="submit">Enviar</button>
+        </div>
+        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <ul class=flashes>
+                            {% for message in messages %}
+                            <li>{{ message }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {% endwith %}
+    </form>
+</body>
+</html>

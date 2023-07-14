@@ -1,6 +1,9 @@
 from app import db, login_manager
 from werkzeug.security import check_password_hash
 from flask_login import UserMixin
+from werkzeug.utils import secure_filename
+import os
+import urllib.request
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -118,3 +121,11 @@ class Imovel(db.Model, UserMixin):
         self.pet = pet
         self.descricao = descricao
 
+
+class Imagem(db.Model, UserMixin):
+    __tablename__ = 'imagenns'
+    id = db.Column(db.Integer, primary_key=True)
+    imgimovel = db.Column(db.String(150))
+
+    def __init__(self, imgimovel):
+        self.imgimovel = imgimovel
