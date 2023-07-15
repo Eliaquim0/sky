@@ -120,3 +120,14 @@ button:hover {
     box-shadow: 1px 1px 6px #0000001c;
     font-size: 0.8rem;
 }
+
+.flash-link a {
+    font-size: 1.4em;
+    color: darkorange;
+    text-decoration: none;
+  }
+  
+.flash-link:hover a {
+    color: darkorange;
+    text-decoration: underline;
+  }

@@ -79,7 +79,9 @@ def pesquisa():
 def logout():
     logout_user()
     flash("Desconectado.")
+    flash('Clique <a href="' + url_for('index') + '">AQUI </a> para seguir para pagina principal.')
     return redirect(url_for('login'))
+
 
 
 @app.route('/cadastroimoveis', methods=['GET', 'POST'])
@@ -105,15 +107,28 @@ def cadastroimoveis():
         mobiliado = request.form['mobiliado']
         pet = request.form['pet']
         descricao = request.form['description']
+        img = request.files['arquivo']
+        filename = secure_filename(img.filename)
 
         enderecoimoveis = EndImovel(logradouro, numero, cep, uf, cidade, bairro, complemento)
 
         imovel = Imovel(tipoimovel, valorimovel, quantquarto, quantgaragem, quantisuite, quantobanheiro, garagemcoberta, areaservico, piscina, internet, mobiliado, pet, descricao)
+        
+        imagem = Imagem(nome=img.filename, imgimovel=img.read())
+
         db.session.add(enderecoimoveis)
         db.session.add(imovel)
+        db.session.add(imagem)
         db.session.commit()
         if db.session.commit:True
         flash("Cadastro realizado com sucesso.")
+        if img and arquivo_permitido(img.filename):
+            img.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            flash('Arquivo de imagem enviado com sucesso ' + img.filename + '!')
+            flash('Clique <a href="' + url_for('index') + '">AQUI </a> para seguir para pagina principal.')
+            return redirect('/cadastroimoveis')
+        else:
+            flash('IMAGEM NAO ENVIADA: Somente permitido arquivos png, jpg, jpeg e gif')
 
     return render_template('cadastroimoveis.html')
 
@@ -121,16 +136,16 @@ def cadastroimoveis():
 @app.route('/imagem', methods=['GET', 'POST'])
 def imagem():
     if request.method =='POST':
-        imgimovel = request.files['arquivo']
-        filename = secure_filename(imgimovel.filename)
+        img = request.files['arquivo']
+        filename = secure_filename(img.filename)
 
-        imagem = Imagem(imgimovel)
+        imagem = Imagem(nome=img.filename, imgimovel=img.read())
         db.session.add(imagem)
         db.session.commit()
 
-        if imgimovel and arquivo_permitido(imgimovel.filename):
-            imgimovel.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            flash('Arquivo enviado com sucesso ' + imgimovel.filename + '!')
+        if img and arquivo_permitido(img.filename):
+            img.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            flash('Arquivo enviado com sucesso ' + img.filename + '!')
             return redirect('/imagem')
         else:
             flash('Somente permitido arquivos png, jpg, jpeg e gif')

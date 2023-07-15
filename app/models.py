@@ -17,6 +17,7 @@ class Usuario(db.Model, UserMixin):
     tel = db.Column(db.String(11))
     email = db.Column(db.String(45))
     senha = db.Column(db.String(45))
+    
 
     def __init__(self, nome, cpf, tel, email, senha):
         self.nome = nome
@@ -32,6 +33,7 @@ class Endereco(db.Model, UserMixin):
     numero = db.Column(db.Integer)
     cep = db.Column(db.String(9))
     complemento = db.Column(db.Text)
+   
 
     def __init__(self, logradouro, numero, cep, complemento):
         self.logradouro = logradouro
@@ -43,6 +45,7 @@ class Estado(db.Model, UserMixin):
     __tablename__ = 'estado'
     id = db.Column(db.Integer, primary_key=True)
     estado = db.Column(db.String(100))
+   
 
     def __init__(self, estado):
         self.estado = estado
@@ -75,8 +78,7 @@ class EndImovel(db.Model, UserMixin):
     uf = db.Column(db.String(2))
     cidade = db.Column(db.String(45))
     bairro = db.Column(db.String(45))
-    complemento = db.Column(db.String(100))
-    imoveis = db.relationship('Imovel', backref='enderecoimoveis')
+
 
     def __init__(self, logradouro, numero, cep, uf, cidade, bairro, complemento):
         self.logradouro = logradouro
@@ -103,7 +105,7 @@ class Imovel(db.Model, UserMixin):
     mobiliado = db.Column(db.String(45))
     pet = db.Column(db.String(45))
     descricao = db.Column(db.String(100))
-    enderecoim_id = db.Column(db.Integer, db.ForeignKey('enderecoimoveis.id'))
+  
 
     def __init__(self, tipoimovel, valorimovel, quantquarto, quantgaragem, quantisuite, quantobanheiro, garagemcoberta, areaservico, piscina, internet, mobiliado, pet, descricao):
         
@@ -123,9 +125,12 @@ class Imovel(db.Model, UserMixin):
 
 
 class Imagem(db.Model, UserMixin):
-    __tablename__ = 'imagenns'
+    __tablename__ = 'imagem'
     id = db.Column(db.Integer, primary_key=True)
-    imgimovel = db.Column(db.String(150))
+    nome = db.Column(db.String(255))
+    imgimovel = db.Column(db.LargeBinary)
 
-    def __init__(self, imgimovel):
+    def __init__(self, nome, imgimovel):
+        self.nome = nome
         self.imgimovel = imgimovel
+

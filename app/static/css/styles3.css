@@ -32,3 +32,13 @@ button:hover {
     background-color: #FFBB00;
 }
 
+.flash-link a {
+    font-size: 1.4em;
+    color: darkorange;
+    text-decoration: none;
+  }
+  
+.flash-link:hover a {
+    color: darkorange;
+    text-decoration: underline;
+  }

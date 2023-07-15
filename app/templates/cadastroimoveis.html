@@ -8,6 +8,7 @@
         body{
         background-image:url({{url_for('static', filename='img/header-2-bg.jpg')}})
     }
+
     </style>   
 </head>
 <body>
@@ -19,7 +20,7 @@
         </div>
     </div>
        
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data"> 
 
         <div class="input-group">
             <div class="input-box">
@@ -109,14 +110,14 @@
         
             <div class="input-box">
         <label for="valor-imovel">Valor do Imóvel:</label>
-        <input type="" id="valor-imovel" name="valorimovel" placeholder="Ex: 30.000,00">
+        <input type="" id="valor-imovel" name="valorimovel" placeholder="Ex: 100000">
             </div>
 
                 
 
             <div class="input-box">
         <label for="foto">Foto:</label>
-        <input type="file" id="foto" name="foto">
+        <input type="file" name="arquivo" id="imagem" accept=".jpg, .png, .jpeg, .gif">
             </div>
    
 
@@ -196,7 +197,7 @@
                 {% if messages %}
                     <ul class=flashes>
                     {% for message in messages %}
-                    <li>{{ message }}</li>
+                    <li class="flash-link">{{ message|safe }}</li>
                     {% endfor %}
                     </ul>
                 {% endif %}
