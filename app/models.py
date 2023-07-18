@@ -5,9 +5,7 @@ from werkzeug.utils import secure_filename
 import os
 import urllib.request
 
-@login_manager.user_loader
-def load_user(user_id):
-    return Usuario.query.get(int(user_id))
+
 
 class Usuario(db.Model, UserMixin):
     __tablename__ = 'usuario'
@@ -17,15 +15,18 @@ class Usuario(db.Model, UserMixin):
     tel = db.Column(db.String(11))
     email = db.Column(db.String(45))
     senha = db.Column(db.String(45))
+    endereco_id = db.Column(db.Integer, db.ForeignKey('endereco.id'))
+    endereco = db.relationship('Endereco', backref=db.backref('usuario', lazy=True))
+    imoveis = db.relationship('Imovel', backref='usuario', lazy=True)
     
 
-    def __init__(self, nome, cpf, tel, email, senha):
+    def __init__(self, nome, cpf, tel, email, senha,):
         self.nome = nome
         self.cpf = cpf
         self.tel = tel
         self.email = email
         self.senha = senha
-
+        
 class Endereco(db.Model, UserMixin):
     __tablename__ = 'endereco'
     id = db.Column(db.Integer, primary_key=True)
@@ -33,7 +34,15 @@ class Endereco(db.Model, UserMixin):
     numero = db.Column(db.Integer)
     cep = db.Column(db.String(9))
     complemento = db.Column(db.Text)
-   
+    cidade_id = db.Column(db.Integer, db.ForeignKey('cidade.id'))
+    cidade = db.relationship('Cidade', backref=db.backref('endereco', lazy=True))
+    bairro_id = db.Column(db.Integer, db.ForeignKey('bairro.id'))
+    bairro = db.relationship('Bairro', backref=db.backref('endereco', lazy=True))
+    estado_id = db.Column(db.Integer, db.ForeignKey('estado.id'))
+    estado = db.relationship('Estado', backref=db.backref('endereco', lazy=True))
+    
+    
+    
 
     def __init__(self, logradouro, numero, cep, complemento):
         self.logradouro = logradouro
@@ -78,6 +87,7 @@ class EndImovel(db.Model, UserMixin):
     uf = db.Column(db.String(2))
     cidade = db.Column(db.String(45))
     bairro = db.Column(db.String(45))
+    complemento = db.Column(db.String(100))
 
 
     def __init__(self, logradouro, numero, cep, uf, cidade, bairro, complemento):
@@ -105,9 +115,15 @@ class Imovel(db.Model, UserMixin):
     mobiliado = db.Column(db.String(45))
     pet = db.Column(db.String(45))
     descricao = db.Column(db.String(100))
+    usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'))
+    enderecoim_id = db.Column(db.Integer, db.ForeignKey('enderecoimoveis.id'))
+    enderecoim = db.relationship('EndImovel', backref=db.backref('imovel', lazy=True))
+    imagem_id = db.Column(db.Integer, db.ForeignKey('imagem.id'))
+    imagem = db.relationship('Imagem', backref=db.backref('imovel', lazy=True))
+    
   
 
-    def __init__(self, tipoimovel, valorimovel, quantquarto, quantgaragem, quantisuite, quantobanheiro, garagemcoberta, areaservico, piscina, internet, mobiliado, pet, descricao):
+    def __init__(self, tipoimovel, valorimovel, quantquarto, quantgaragem, quantisuite, quantobanheiro, garagemcoberta, areaservico, piscina, internet, mobiliado, pet, descricao,usuario_id):
         
         self.tipoimovel = tipoimovel
         self.valorimovel = valorimovel
@@ -122,6 +138,7 @@ class Imovel(db.Model, UserMixin):
         self.mobiliado = mobiliado
         self.pet = pet
         self.descricao = descricao
+        self.usuario_id = usuario_id
 
 
 class Imagem(db.Model, UserMixin):

@@ -1,11 +1,15 @@
 from flask import render_template, request, redirect, url_for, flash
-from flask_login import login_user, logout_user
-from app import app, db, LoginManager
+from flask_login import login_user, logout_user, current_user
+from app import app, db, LoginManager,login_manager
 from app.models import Usuario, Endereco, Estado, Cidade, Bairro, EndImovel, Imovel, Imagem
 from app.forms import LoginForm
 from werkzeug.utils import secure_filename
 import os
 import urllib.request
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Usuario.query.get(int(user_id))
 
 EXTENSAO_PERMITIDA = set(['jpg', 'jpeg', 'gif', 'png'])
 
@@ -35,17 +39,32 @@ def cadastro():
         numero = request.form['numero']
         complemento = request.form['complemento']
 
-        usuario = Usuario(nome, cpf, tel, email, senha)
+
+
         endereco = Endereco(logradouro, numero, cep, complemento)
+        usuario = Usuario(nome, cpf, tel, email, senha)
         estado = Estado(estado)
         cidade = Cidade(cidade)
         bairro = Bairro(bairro)
-        db.session.add(usuario)
-        db.session.add(endereco)
+
+        
         db.session.add(estado)
         db.session.add(cidade)
         db.session.add(bairro)
         db.session.commit()
+        
+
+        endereco.estado_id = estado.id
+        endereco.cidade_id = cidade.id
+        endereco.bairro_id = bairro.id
+        db.session.add(endereco)
+        db.session.commit()
+
+        
+        usuario.endereco_id = endereco.id
+        db.session.add(usuario)
+        db.session.commit()
+
         if db.session.commit:True
         flash("Cadastro realizado com sucesso.")
         return redirect(url_for('login'))
@@ -112,14 +131,23 @@ def cadastroimoveis():
 
         enderecoimoveis = EndImovel(logradouro, numero, cep, uf, cidade, bairro, complemento)
 
-        imovel = Imovel(tipoimovel, valorimovel, quantquarto, quantgaragem, quantisuite, quantobanheiro, garagemcoberta, areaservico, piscina, internet, mobiliado, pet, descricao)
+        imovel = Imovel(tipoimovel, valorimovel, quantquarto, quantgaragem, quantisuite, quantobanheiro, garagemcoberta, areaservico, piscina, internet, mobiliado, pet, descricao, usuario_id=current_user.id)
         
         imagem = Imagem(nome=img.filename, imgimovel=img.read())
 
         db.session.add(enderecoimoveis)
-        db.session.add(imovel)
+        db.session.commit()
+
         db.session.add(imagem)
         db.session.commit()
+
+        
+        imovel.enderecoim_id = enderecoimoveis.id
+        imovel.imagem_id = imagem.id
+        db.session.add(imovel)
+        db.session.commit()
+       
+        
         if db.session.commit:True
         flash("Cadastro realizado com sucesso.")
         if img and arquivo_permitido(img.filename):

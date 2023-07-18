@@ -54,28 +54,28 @@ CREATE TABLE enderecoimoveis(
 );
 
 
-CREATE TABLE imovel(
-		id SERIAL PRIMARY KEY NOT NULL,
-		tipoimovel VARCHAR(45),
-		valorimovel VARCHAR(45),
-		quantquarto VARCHAR(45),
-		quantgaragem VARCHAR(45),
-		garagemcoberta VARCHAR(45),
-		quantisuite VARCHAR(45),
-		quantobanheiro VARCHAR(45),
-		areaservico VARCHAR(45),
-		piscina VARCHAR(45),
-		internet VARCHAR(45),
-		mobiliado VARCHAR(45),
-		pet VARCHAR(45),
-		descricao VARCHAR(45),
-		usuario_id INTEGER,
-		enderecoim_id INTEGER,
-		imagem_id
-		FOREIGN KEY (usuario_id) REFERENCES usuario (id),
-		FOREIGN KEY (enderecoim_id) REFERENCES enderecoimoveis (id),
-		FOREIGN KEY (imagem_id) REFERENCES imagem (id)
-		
+	CREATE TABLE imovel(
+			id SERIAL PRIMARY KEY NOT NULL,
+			tipoimovel VARCHAR(45),
+			valorimovel VARCHAR(45),
+			quantquarto VARCHAR(45),
+			quantgaragem VARCHAR(45),
+			garagemcoberta VARCHAR(45),
+			quantisuite VARCHAR(45),
+			quantobanheiro VARCHAR(45),
+			areaservico VARCHAR(45),
+			piscina VARCHAR(45),
+			internet VARCHAR(45),
+			mobiliado VARCHAR(45),
+			pet VARCHAR(45),
+			descricao VARCHAR(45),
+			usuario_id INTEGER,
+			enderecoim_id INTEGER,
+			imagem_id INTEGER,
+			FOREIGN KEY (usuario_id) REFERENCES usuario (id),
+			FOREIGN KEY (enderecoim_id) REFERENCES enderecoimoveis (id),
+			FOREIGN KEY (imagem_id) REFERENCES imagem (id)
+			
 );
 
 
