@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Perfil do Usuário</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f2f5;
+    }
+    
+    #profile {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    #profile .cover-photo {
+      width: 100%;
+      height: 200px;
+      background-image: url('path/to/cover-photo.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    
+    #profile .profile-picture {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 5px solid #fff;
+      background-image: url('path/to/profile-picture.jpg');
+      background-size: cover;
+      background-position: center;
+      margin: -75px auto 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    #profile h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    
+    #profile p {
+      margin-bottom: 10px;
+      color: #666;
+    }
+    
+    #profile .section {
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    #profile .section h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    
+    #profile .section p {
+      margin-bottom: 5px;
+      color: #666;
+    }
+    
+    #profile .section .label {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+    
+    #profile .section .value {
+      font-style: italic;
+    }
+    
+    #profile .button {
+      display: inline-block;
+      background-color: #3b5998;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+    
+    #profile .button:hover {
+      background-color: #2a437c;
+    }
+    
+    #profile .edit-button {
+      background-color: #e9ebee;
+      color: #555;
+      border: 1px solid #ddd;
+    }
+    
+    #profile .edit-button:hover {
+      background-color: #d2d6db;
+    }
+    
+    #profile .about {
+      margin-bottom: 20px;
+    }
+    
+    #profile .about h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    
+    #profile .about p {
+      margin-bottom: 5px;
+      color: #666;
+    }
+    
+    #profile .photos {
+      margin-bottom: 20px;
+    }
+    
+    #profile .photos h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    
+    #profile .photos .photo {
+      width: 150px;
+      height: 150px;
+      display: inline-block;
+      margin-right: 10px;
+      background-image: url('path/to/photo1.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    
+    #profile .photos .photo:last-child {
+      margin-right: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="profile">
+    <div class="cover-photo"></div>
+    
+    <div class="profile-picture"></div>
+    
+    <h1>Nome do Usuário</h1>
+    <p>Endereço de email</p>
+    
+    <div class="section">
+      <h2>Informações Pessoais</h2>
+      <p><span class="label">Data de Nascimento:</span><span class="value">01/01/2000</span></p>
+      <p><span class="label">Cidade:</span><span class="value">Cidade Exemplo</span></p>
+      <p><span class="label">Trabalho:</span><span class="value">Empresa Exemplo</span></p>
+    </div>
+    
+    <div class="section">
+      <h2>Educação</h2>
+      <p><span class="label">Universidade:</span><span class="value">Universidade Exemplo</span></p>
+      <p><span class="label">Curso:</span><span class="value">Curso Exemplo</span></p>
+    </div>
+    
+    <div class="section">
+      <h2>Contato</h2>
+      <p><span class="label">Telefone:</span><span class="value">123456789</span></p>
+      <p><span class="label">Endereço:</span><span class="value">Rua Exemplo, 123</span></p>
+    </div>
+    
+    <a href="#" class="button">Adicionar Amigo</a>
+    <a href="#" class="button edit-button">Editar Perfil</a>
+    
+    <div class="about">
+      <h2>Sobre</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod lectus et felis efficitur fermentum. Integer consectetur faucibus tempus.</p>
+    </div>
+    
+    <div class="photos">
+      <h2>Fotos</h2>
+      <div class="photo"></div>
+      <div class="photo"></div>
+      <div class="photo"></div>
+    </div>
+  </div>
+</body>
+</html>

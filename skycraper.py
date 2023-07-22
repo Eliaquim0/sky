@@ -179,3 +179,8 @@ def imagem():
             flash('Somente permitido arquivos png, jpg, jpeg e gif')
 
     return render_template('imagem.html')
+
+
+@app.route('/perfil', methods=['GET','POST'])
+def perfil():
+    return render_template('perfil.html')

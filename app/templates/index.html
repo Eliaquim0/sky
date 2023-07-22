@@ -36,8 +36,9 @@
                         <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contato</a></li>
                         {% if  current_user.is_authenticated %}
-                        <li class="nav-item"><a href="#" class="nav-link">Minha Conta</a>
+                        <li class="nav-item"><a href="#" class="nav-link">{{ current_user.nome }}</a>
                         <div class="drop-menu">
+                            <a class="nav-link" href="#">Minha Conta</a>
                             <a class="nav-link" href="cadastroimoveis">Cadastrar Imovel</a>
                             <a class="nav-link" href="#">Historico</a>
                             <a class="nav-link" href="#">Perfil</a>
